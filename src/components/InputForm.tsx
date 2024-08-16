@@ -1,6 +1,6 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from './ui/button';
 import { z } from 'zod';
@@ -11,6 +11,20 @@ import { useRouter } from 'next/router';
 
 export function InputForm() {
   const router = useRouter();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
 
   const schema = z.object({
     name: z
@@ -37,7 +51,9 @@ export function InputForm() {
   return (
     <div>
       <form
-        className="grid w-full  justify-center  items-center gap-3 pb-8"
+        className={`grid w-full justify-center items-center gap-3 pb-8 ${
+          isMobile ? 'px-4' : ''
+        }`}
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex justify-center font-bold text-2xl text-cyan-500">
@@ -49,7 +65,7 @@ export function InputForm() {
         <Input
           {...register('name', { required: '名字是必填的！' })}
           placeholder="林雨寧"
-          className="w-[20vw]"
+          className={isMobile ? 'w-full' : 'w-[20vw]'}
         />
         {errors.name && (
           <span className="text-red-500 text-sm">{errors.name.message}</span>
@@ -60,7 +76,7 @@ export function InputForm() {
         <Input
           {...register('email', { required: '信箱是必填的！' })}
           placeholder="iu@gmail.com"
-          className="w-[20vw]"
+          className={isMobile ? 'w-full' : 'w-[20vw]'}
         />
         {errors.email && (
           <span className="text-red-500 text-sm">{errors.email.message}</span>
@@ -71,14 +87,16 @@ export function InputForm() {
         <Input
           {...register('phone', { required: '電話是必填的！' })}
           placeholder="09"
-          className="w-[20vw]"
+          className={isMobile ? 'w-full' : 'w-[20vw]'}
         />
         {errors.phone && (
           <span className="text-red-500 text-sm">{errors.phone.message}</span>
         )}
 
         <Button
-          className="border bg-green-500 w-[7vw] text-white p-4 "
+          className={`border bg-green-500 text-white p-4 ${
+            isMobile ? 'w-full' : 'w-[7vw]'
+          }`}
           type="submit"
         >
           送出

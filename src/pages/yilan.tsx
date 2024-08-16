@@ -1,24 +1,77 @@
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 export default function Yilan() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
+
   const photos = [
     { src: '/images/yi1.jpeg', description: 'Description for Photo 1' },
     { src: '/images/yi2.jpeg', description: 'Description for Photo 2' },
     { src: '/images/yi3.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi4.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi5.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi6.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi7.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi8.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi9.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi10.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi11.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi12.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi13.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi14.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/yi15.jpeg', description: 'Description for Photo 3' },
-    // 更多照片...
+    { src: '/images/yi4.jpeg', description: 'Description for Photo 4' },
+    { src: '/images/yi5.jpeg', description: 'Description for Photo 5' },
+    { src: '/images/yi6.jpeg', description: 'Description for Photo 6' },
+    { src: '/images/yi7.jpeg', description: 'Description for Photo 7' },
+    { src: '/images/yi8.jpeg', description: 'Description for Photo 8' },
+    { src: '/images/yi9.jpeg', description: 'Description for Photo 9' },
+    { src: '/images/yi10.jpeg', description: 'Description for Photo 10' },
+    { src: '/images/yi11.jpeg', description: 'Description for Photo 11' },
+    { src: '/images/yi12.jpeg', description: 'Description for Photo 12' },
+    { src: '/images/yi13.jpeg', description: 'Description for Photo 13' },
+    { src: '/images/yi14.jpeg', description: 'Description for Photo 14' },
+    { src: '/images/yi15.jpeg', description: 'Description for Photo 15' },
   ];
+
+  if (isMobile) {
+    return (
+      <div className="bg-amber-100 p-4">
+        <h1 className="text-4xl font-bold text-gray-600 mb-4">YILAN</h1>
+        <p className="text-xl font-bold text-gray-600 mb-4">
+          February.19 ~ February.20
+        </p>
+        <div className="grid grid-cols-1 gap-4">
+          {photos.map((photo, index) => (
+            <Image
+              key={index}
+              src={photo.src}
+              alt={`photo${index + 1}`}
+              width={1600}
+              height={800}
+              className="w-full h-auto object-cover rounded-lg"
+            />
+          ))}
+        </div>
+        <div className="mt-8">
+          <p className="text-2xl font-bold text-gray-600 mb-2">
+            Spring is as warm as your smile
+          </p>
+          <p className="text-3xl font-bold text-gray-600 mb-4">卡皮巴拉! ! !</p>
+          <p className="text-3xl font-bold text-gray-600 mb-4">LOVE YOU</p>
+          <p className="text-2xl font-bold text-gray-600 mb-2">L Y T</p>
+          <p className="text-xl font-bold text-gray-600 mb-2">
+            ⏰ is very good
+          </p>
+          <p className="text-xl font-bold text-gray-600">
+            {" Let's go again next time"}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className=" relative -z-20 h-[250vh] bg-amber-100 mt-[5rem]">
@@ -50,7 +103,7 @@ export default function Yilan() {
           February.19 ~ February.20
         </div>
         <div className="absolute text-[5rem]   font-bold  text-gray-600 top-[115vh] right-[10rem] ">
-          YILAN
+          {'YILAN'}
         </div>
         <Image
           src={photos[14].src}

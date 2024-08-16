@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useMediaQuery } from 'react-responsive';
 
 // 圖片數組
 const images = [
@@ -71,6 +72,7 @@ const images = [
 
 const ImageCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -80,17 +82,33 @@ const ImageCarousel = () => {
     return () => clearInterval(intervalId); // 清除計時器
   }, []);
 
-  return (
-    <div
-      style={{
+  const carouselStyle = isMobile
+    ? {
+        position: 'relative',
+        maxWidth: '100%',
+        minHeight: '40vh',
+        left: '0',
+        top: '2vh',
+        marginBottom: '5vh',
+      }
+    : {
         position: 'relative',
         maxWidth: '80%',
         minHeight: '60vh',
         left: '10vw',
         top: '5vh',
         marginBottom: '10vh',
-      }}
-    >
+      };
+
+  return (
+    <div style={{
+      position: carouselStyle.position as 'relative',
+      maxWidth: carouselStyle.maxWidth,
+      minHeight: carouselStyle.minHeight,
+      left: carouselStyle.left,
+      top: carouselStyle.top,
+      marginBottom: carouselStyle.marginBottom
+    }}>
       <Image
         className=""
         src={images[currentIndex]}

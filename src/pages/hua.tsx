@@ -1,27 +1,76 @@
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
-export default function Yilan() {
+export default function Hualien() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
+
   const photos = [
     { src: '/images/hua1.jpeg', description: 'Description for Photo 1' },
     { src: '/images/hua2.jpeg', description: 'Description for Photo 2' },
     { src: '/images/hua3.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua4.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua5.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua6.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua7.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua8.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua9.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua10.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua11.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua12.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua13.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua14.jpeg', description: 'Description for Photo 3' },
-    { src: '/images/hua15.jpeg', description: 'Description for Photo 3' },
-    // 更多照片...
+    { src: '/images/hua4.jpeg', description: 'Description for Photo 4' },
+    { src: '/images/hua5.jpeg', description: 'Description for Photo 5' },
+    { src: '/images/hua6.jpeg', description: 'Description for Photo 6' },
+    { src: '/images/hua7.jpeg', description: 'Description for Photo 7' },
+    { src: '/images/hua8.jpeg', description: 'Description for Photo 8' },
+    { src: '/images/hua9.jpeg', description: 'Description for Photo 9' },
+    { src: '/images/hua10.jpeg', description: 'Description for Photo 10' },
+    { src: '/images/hua11.jpeg', description: 'Description for Photo 11' },
+    { src: '/images/hua12.jpeg', description: 'Description for Photo 12' },
+    { src: '/images/hua13.jpeg', description: 'Description for Photo 13' },
+    { src: '/images/hua14.jpeg', description: 'Description for Photo 14' },
+    { src: '/images/hua15.jpeg', description: 'Description for Photo 15' },
   ];
+
+  if (isMobile) {
+    return (
+      <div className="bg-green-50 p-4">
+        <h1 className="text-4xl font-bold text-gray-600 mb-4">Hualien</h1>
+        <p className="text-xl font-bold text-gray-600 mb-4">SUMMER</p>
+        <div className="grid grid-cols-1 gap-4">
+          {photos.map((photo, index) => (
+            <Image
+              key={index}
+              src={photo.src}
+              alt={`photo${index + 1}`}
+              width={1600}
+              height={800}
+              className="w-full h-auto object-cover rounded-lg"
+            />
+          ))}
+        </div>
+        <div className="mt-8">
+          <p className="text-2xl font-bold text-gray-600 mb-2">
+            Happy Birthday
+          </p>
+          <p className="text-xl font-bold text-gray-600 mb-4">
+            {"You're so beautiful"}
+          </p>
+          <p className="text-2xl font-bold text-gray-600 mb-4">
+            Because of you, every day is a good day
+          </p>
+          <p className="text-xl font-bold text-gray-600">LYT</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <div className=" relative -z-20 h-min-[75vh] ">
+      <div className=" relative -z-20 h-min-[75vh] w-min-[100vw]">
         <div className="absolute text-white p-4 text-xl font-bold ">07</div>
         <div className="absolute text-white p-4 text-xl font-bold right-[50%]">
           SUMMER
@@ -73,7 +122,6 @@ export default function Yilan() {
         <Image
           src={photos[2].src}
           alt={'photo2'}
-          // layout="responsive"
           width={1600}
           height={800}
           objectPosition="bottom"
@@ -82,7 +130,6 @@ export default function Yilan() {
         <Image
           src={photos[13].src}
           alt={'photo3'}
-          // layout="responsive"
           width={1600}
           height={800}
           objectPosition="bottom"
@@ -91,7 +138,6 @@ export default function Yilan() {
         <Image
           src={photos[8].src}
           alt={'photo3'}
-          // layout="responsive"
           width={1600}
           height={800}
           objectPosition="bottom"
@@ -117,7 +163,6 @@ export default function Yilan() {
         <Image
           src={photos[4].src}
           alt={'photo3'}
-          // layout="responsive"
           width={1600}
           height={800}
           objectPosition="bottom"
@@ -126,7 +171,6 @@ export default function Yilan() {
         <Image
           src={photos[7].src}
           alt={'photo3'}
-          // layout="responsive"
           width={1600}
           height={800}
           objectPosition="bottom"
@@ -135,7 +179,6 @@ export default function Yilan() {
         <Image
           src={photos[9].src}
           alt={'photo3'}
-          // layout="responsive"
           width={1600}
           height={800}
           objectPosition="bottom"
@@ -144,7 +187,6 @@ export default function Yilan() {
         <Image
           src={photos[9].src}
           alt={'photo3'}
-          // layout="responsive"
           width={1600}
           height={800}
           objectPosition="bottom"
@@ -153,7 +195,6 @@ export default function Yilan() {
         <Image
           src={photos[5].src}
           alt={'photo3'}
-          // layout="responsive"
           width={1600}
           height={800}
           objectPosition="bottom"

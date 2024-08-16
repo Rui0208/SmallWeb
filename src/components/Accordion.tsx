@@ -8,12 +8,15 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@radix-ui/react-label';
 import { motion } from 'framer-motion';
 import Radio from './Radio';
+import { useMediaQuery } from 'react-responsive';
 
 export function AccordionDemo() {
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
   return (
-    <div className="flex flex-col justify-center items-center gap-4 mt-6">
-      <p className="text-xl font-bold text-red-400">壽星須知</p>
-      <Accordion type="single" collapsible className="w-[60vw]">
+    <div className={`flex flex-col justify-center items-center gap-4 mt-6 ${isMobile ? 'px-4' : ''}`}>
+      <p className={`text-xl font-bold text-red-400 ${isMobile ? 'text-center' : ''}`}>壽星須知</p>
+      <Accordion type="single" collapsible className={isMobile ? 'w-full' : 'w-[60vw]'}>
         <AccordionItem value="item-1">
           <AccordionTrigger>生日行程</AccordionTrigger>
           <AccordionContent asChild>
@@ -24,7 +27,7 @@ export function AccordionDemo() {
               transition={{ duration: 0.3 }}
               className="overflow-hidden"
             >
-              <div className="flex justify-between">
+              <div className={`flex ${isMobile ? 'flex-col' : 'justify-between'}`}>
                 <div>
                   <p className="my-1">8/31:上班-西式餐廳</p>
                   <p className="my-1">
@@ -32,7 +35,7 @@ export function AccordionDemo() {
                   </p>
                   <p className="my-1">9/2:睡到自然醒-阿睿要上班qq-晚餐</p>
                 </div>
-                <RadioGroup defaultValue="option-one">
+                <RadioGroup defaultValue="option-one" className={isMobile ? 'mt-4' : ''}>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem
                       value="option-one"

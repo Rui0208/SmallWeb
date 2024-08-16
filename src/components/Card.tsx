@@ -10,12 +10,28 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export default function Card() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
+
   return (
-    <div className="flex justify-center my-6">
+    <div className={`flex justify-center ${isMobile ? 'my-3' : 'my-6'}`}>
       <AlertDialog>
-        <AlertDialogTrigger className="border-2 w-[7rem] h-[2rem] bg-rose-300 rounded-3xl cursor-pointer hover:bg-rose-500 text-white">
+        <AlertDialogTrigger className={`border-2 ${isMobile ? 'w-[5rem] h-[1.5rem] text-sm' : 'w-[7rem] h-[2rem]'} bg-rose-300 rounded-3xl cursor-pointer hover:bg-rose-500 text-white`}>
           卡片點我
         </AlertDialogTrigger>
         <AlertDialogContent asChild>
@@ -24,14 +40,14 @@ export default function Card() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="  bg-white p-6 shadow-lg rounded-lg   "
+            className={`bg-white p-6 shadow-lg rounded-lg ${isMobile ? 'max-w-[90vw]' : ''}`}
           >
             <AlertDialogHeader>
-              <AlertDialogTitle className="text-3xl text-sky-300">
+              <AlertDialogTitle className={`text-sky-300 ${isMobile ? 'text-2xl' : 'text-3xl'}`}>
                 Happy Birthday！
               </AlertDialogTitle>
               <AlertDialogDescription>
-                <div className="text-lg ">
+                <div className={`${isMobile ? 'text-base' : 'text-lg'}`}>
                   <div>
                     這是陪妳過的第一個生日，終於等到這天，這個週末準備了一些要給妳，敬請期待！
                   </div>
