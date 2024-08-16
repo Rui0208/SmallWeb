@@ -25,7 +25,7 @@ const config: Config = {
     },
   },
   plugins: [
-    function ({ addUtilities }) {
+    function ({ addUtilities }: any) {
       const newUtilities = {
         '.vertical-rl': {
           writingMode: 'vertical-rl',
