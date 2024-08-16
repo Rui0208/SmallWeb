@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 export function InputForm() {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -44,8 +45,18 @@ export function InputForm() {
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
-  const onSubmit = (data: any) => {
-    router.push('/gift');
+  
+  const onSubmit = async (data: any) => {
+    setIsSubmitting(true);
+    try {
+      // 模擬API調用
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      router.push('/gift');
+    } catch (error) {
+      console.error('提交表單時發生錯誤:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -59,7 +70,7 @@ export function InputForm() {
         <div className="flex justify-center font-bold text-2xl text-cyan-500">
           {'領取禮物'}
         </div>
-        <Label className="text-[1rem]" htmlFor="email">
+        <Label className="text-[1rem]" htmlFor="name">
           姓名
         </Label>
         <Input
@@ -81,7 +92,7 @@ export function InputForm() {
         {errors.email && (
           <span className="text-red-500 text-sm">{errors.email.message}</span>
         )}
-        <Label className="text-[1rem]" htmlFor="email">
+        <Label className="text-[1rem]" htmlFor="phone">
           電話號碼
         </Label>
         <Input
@@ -98,8 +109,9 @@ export function InputForm() {
             isMobile ? 'w-full' : 'w-[7vw]'
           }`}
           type="submit"
+          disabled={isSubmitting}
         >
-          送出
+          {isSubmitting ? '提交中...' : '送出'}
         </Button>
       </form>
     </div>

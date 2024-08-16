@@ -27,12 +27,12 @@ export default function Nav() {
 
   return (
     <div>
-      <nav className="z-100 opacity-70">
+      <nav className="z-50">
         {isMobile ? (
-          <div className="z-100 border-b-2 min-h-[8vh] font-bold shadow-md bg-gray-100 w-full fixed left-0 top-0 z-10">
+          <div className="border-b-2 min-h-[8vh] font-bold shadow-md bg-gray-100 w-full fixed left-0 top-0 z-50">
             <div className="flex justify-between items-center px-4 py-2">
               <span
-                className="z-100 text-xl text-blue-400 cursor-pointer hover:text-blue-700"
+                className="text-xl text-blue-400 cursor-pointer hover:text-blue-700"
                 onClick={() => router.push('/')}
               >
                 Small BirthDay
@@ -40,24 +40,24 @@ export default function Nav() {
               <Menu onClick={toggleMenu} className="cursor-pointer w-6 h-6" />
             </div>
             {isMenuOpen && (
-              <ul className="flex flex-col items-center py-2">
+              <ul className="flex flex-col items-center py-2 bg-gray-100 z-50">
                 <li className="my-1">
                   <Card />
                 </li>
                 <li
-                  className="z-100 text-lg cursor-pointer hover:text-green-700 my-1"
+                  className="text-lg cursor-pointer hover:text-green-700 my-1"
                   onClick={() => router.push('/yilan')}
                 >
                   宜蘭
                 </li>
                 <li
-                  className="z-100 text-lg cursor-pointer hover:text-yellow-700 my-1"
+                  className="text-lg cursor-pointer hover:text-yellow-700 my-1"
                   onClick={() => router.push('tainan')}
                 >
                   台南
                 </li>
                 <li
-                  className="z-100 text-lg cursor-pointer hover:text-red-700 my-1"
+                  className="text-lg cursor-pointer hover:text-red-700 my-1"
                   onClick={() => router.push('/hua')}
                 >
                   花蓮
@@ -66,9 +66,9 @@ export default function Nav() {
             )}
           </div>
         ) : (
-          <ul className="z-100 flex justify-around border-b-4 min-h-[10vh] font-bold shadow-lg bg-gray-100 w-[100%] items-center fixed left-0 top-0 z-10">
+          <ul className="flex justify-around border-b-4 min-h-[10vh] font-bold shadow-lg bg-gray-100 w-[100%] items-center fixed left-0 top-0 z-50">
             <li
-              className="z-100 text-4xl text-blue-400 cursor-pointer hover:text-blue-700"
+              className="text-4xl text-blue-400 cursor-pointer hover:text-blue-700"
               onClick={() => router.push('/')}
             >
               Small BirthDay
@@ -77,19 +77,19 @@ export default function Nav() {
               <Card />
             </li>
             <li
-              className="z-100 text-2xl ml-[1rem] cursor-pointer hover:text-green-700"
+              className="text-2xl ml-[1rem] cursor-pointer hover:text-green-700"
               onClick={() => router.push('/yilan')}
             >
               宜蘭
             </li>
             <li
-              className="z-100 text-2xl cursor-pointer hover:text-yellow-700"
+              className="text-2xl cursor-pointer hover:text-yellow-700"
               onClick={() => router.push('tainan')}
             >
               台南
             </li>
             <li
-              className="z-100 text-2xl cursor-pointer hover:text-red-700"
+              className="text-2xl cursor-pointer hover:text-red-700"
               onClick={() => router.push('/hua')}
             >
               花蓮

@@ -9,9 +9,10 @@ import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import { InputForm } from '@/components/InputForm';
 import { Label } from '@/components/ui/label';
+
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-neutral-100 -z-10">
+    <div className="relative min-h-screen bg-neutral-100">
       {/* 电脑版布局 */}
       <div className="hidden md:block h-[245vh]">
         <Image
@@ -157,7 +158,7 @@ export default function Home() {
       </div>
 
       {/* 共用组件部分 */}
-      <div className="bg-sky-100 p-4">
+      <div className="bg-sky-100 p-4 relative z-20">
         <Profile />
         <AccordionDemo />
         <ResizableSlide />
