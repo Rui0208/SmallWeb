@@ -19,6 +19,13 @@ const WishBoard = () => {
   const wishesPerPage = 5;
 
   useEffect(() => {
+    const storedWishes = localStorage.getItem('wishes');
+    if (storedWishes) {
+      setWishes(JSON.parse(storedWishes));
+    }
+  }, []);
+
+  useEffect(() => {
     const results = wishes.filter(wish =>
       wish.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       wish.message.toLowerCase().includes(searchTerm.toLowerCase())
@@ -39,20 +46,26 @@ const WishBoard = () => {
         timestamp: Date.now(),
         likes: 0,
       };
-      setWishes([...wishes, newWish]);
+      const updatedWishes = [...wishes, newWish];
+      setWishes(updatedWishes);
+      localStorage.setItem('wishes', JSON.stringify(updatedWishes));
       setNewName('');
       setNewMessage('');
     }
   };
 
   const deleteWish = (id: number) => {
-    setWishes(wishes.filter((wish) => wish.id !== id));
+    const updatedWishes = wishes.filter((wish) => wish.id !== id);
+    setWishes(updatedWishes);
+    localStorage.setItem('wishes', JSON.stringify(updatedWishes));
   };
 
   const likeWish = (id: number) => {
-    setWishes(wishes.map(wish => 
+    const updatedWishes = wishes.map(wish => 
       wish.id === id ? { ...wish, likes: wish.likes + 1 } : wish
-    ));
+    );
+    setWishes(updatedWishes);
+    localStorage.setItem('wishes', JSON.stringify(updatedWishes));
   };
 
   const indexOfLastWish = currentPage * wishesPerPage;
