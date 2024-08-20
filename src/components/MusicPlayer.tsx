@@ -18,6 +18,8 @@ const MusicPlayer: React.FC = () => {
   useEffect(() => {
     audioRef.current = new Audio(playlist[currentTrackIndex].src);
     audioRef.current.loop = false;
+    audioRef.current.play();
+    setIsPlaying(true);
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -56,11 +58,6 @@ const MusicPlayer: React.FC = () => {
   const handleTrackChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newIndex = parseInt(e.target.value);
     setCurrentTrackIndex(newIndex);
-    setIsPlaying(true);
-    if (audioRef.current) {
-      audioRef.current.src = playlist[newIndex].src;
-      audioRef.current.play();
-    }
   };
 
   const toggleExpand = () => {
@@ -68,11 +65,16 @@ const MusicPlayer: React.FC = () => {
   };
 
   return (
-    <div className={`fixed bottom-4 right-4 bg-black p-4 rounded-lg shadow-md z-50 transition-all duration-300 ${isExpanded ? 'h-auto' : 'h-16'} overflow-hidden`}>
+    <div className={`fixed bottom-4 right-4 bg-black p-4 rounded-lg shadow-lg z-50 transition-all duration-300 ${isExpanded ? 'h-auto' : 'h-16'} overflow-hidden`}>
       <div className="flex items-center justify-between mb-2">
         <button onClick={togglePlay} className="focus:outline-none text-white">
           {isPlaying ? <Pause size={24} /> : <Play size={24} />}
         </button>
+        {!isExpanded && (
+          <span className="text-white text-sm truncate mx-2">
+            {playlist[currentTrackIndex].title}
+          </span>
+        )}
         <button onClick={toggleExpand} className="focus:outline-none text-white">
           {isExpanded ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
         </button>
