@@ -29,15 +29,13 @@ export default function SheetCat() {
   }, []);
 
   return (
-    <div className={isMobile ? "bottom-0 fixed z-10 w-full" : "bottom-0 fixed z-10"}>
+    <div className={isMobile ? "bottom-0 left-0 fixed z-10" : "bottom-0 fixed z-10"}>
       <Sheet>
-        <SheetTrigger className={isMobile ? "w-full" : ""}>
-          <div className={isMobile ? "flex justify-center" : ""}>
-            <Avatar className={isMobile ? "w-[4rem] h-[4rem] cursor-pointer" : "w-[5rem] h-[5rem] cursor-pointer"}>
-              <AvatarImage src="/images/cat2.jpeg" />
-              <AvatarFallback>大美女</AvatarFallback>
-            </Avatar>
-          </div>
+        <SheetTrigger>
+          <Avatar className={isMobile ? "w-[4rem] h-[4rem] cursor-pointer ml-4 mb-4" : "w-[5rem] h-[5rem] cursor-pointer"}>
+            <AvatarImage src="/images/cat2.jpeg" />
+            <AvatarFallback>大美女</AvatarFallback>
+          </Avatar>
         </SheetTrigger>
         <SheetContent side={isMobile ? "bottom" : "right"} className="bg-white">
           <SheetHeader className={isMobile ? "flex flex-col items-center" : "flex justify-center items-center"}>
