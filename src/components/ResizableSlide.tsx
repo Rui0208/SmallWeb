@@ -37,7 +37,7 @@ export default function ResizableSlide() {
           <p className="mb-2">小隻生日快樂</p>
           <p className="mb-2">今天是2024年8月31日</p>
           <p className="mb-2">妳的生日</p>
-          <p className="mb-2">手寫的卡片我沒有寫字太醜惹，但我做了一個網頁要送給妳</p>
+          <p className="mb-2">做了一個網頁要送給妳</p>
           <p className="mb-2">利用上班時間做的嘿嘿，也做了滿久的</p>
           <p>希望妳會喜歡</p>
         </div>
