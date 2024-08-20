@@ -36,7 +36,7 @@ export default function Nav() {
     <div>
       <nav className="z-50">
         {isMobile ? (
-          <div className="border-b-2 min-h-[8vh] font-bold shadow-md bg-gray-100 w-full fixed left-0 top-0 z-50">
+          <div className="border-b-2 min-h-[5vh] font-bold shadow-md bg-gray-100 w-full fixed left-0 top-0 z-50">
             <div className="flex justify-between items-center px-4 py-2">
               <span
                 className="text-xl text-blue-400 cursor-pointer hover:text-blue-700"

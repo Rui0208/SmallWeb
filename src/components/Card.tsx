@@ -76,7 +76,7 @@ export default function Card() {
                     Happy Birthday！
                   </AlertDialogTitle>
                   <AlertDialogDescription>
-                    <div className="text-lg">
+                    <div className="text-lg max-h-[60vh] overflow-y-auto pr-2">
                       <div>
                         這是陪妳過的第一個生日，終於等到這天，這個週末準備了一些要給妳，敬請期待！
                       </div>
