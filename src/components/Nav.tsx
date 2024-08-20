@@ -2,11 +2,14 @@ import { useRouter } from 'next/router';
 import Card from './Card';
 import { useState, useEffect } from 'react';
 import { Menu } from 'lucide-react';
+import BirthdayCountdown from './BirthdayCountdown';
+import MusicPlayer from './MusicPlayer';
 
 export default function Nav() {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCardOpen, setIsCardOpen] = useState(false);
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -25,6 +28,10 @@ export default function Nav() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleCardClick = () => {
+    setIsCardOpen(true);
+  };
+
   return (
     <div>
       <nav className="z-50">
@@ -37,31 +44,38 @@ export default function Nav() {
               >
                 Small BirthDay
               </span>
+              <span><MusicPlayer/></span>
               <Menu onClick={toggleMenu} className="cursor-pointer w-6 h-6" />
             </div>
             {isMenuOpen && (
               <ul className="flex flex-col items-center py-2 bg-gray-100 z-50">
                 <li className="my-1">
-                  <Card />
+                  <div onClick={handleCardClick}>
+                    <Card />
+                  </div>
                 </li>
                 <li
-                  className="text-lg cursor-pointer hover:text-green-700 my-1"
+                  className="text-lg cursor-pointer hover:text-green-700 my-1 border-b-2 border-green-500"
                   onClick={() => router.push('/yilan')}
                 >
                   宜蘭
                 </li>
                 <li
-                  className="text-lg cursor-pointer hover:text-yellow-700 my-1"
+                  className="text-lg cursor-pointer hover:text-yellow-700 my-1 border-b-2 border-yellow-500"
                   onClick={() => router.push('tainan')}
                 >
                   台南
                 </li>
                 <li
-                  className="text-lg cursor-pointer hover:text-red-700 my-1"
+                  className="text-lg cursor-pointer hover:text-red-700 my-1 border-b-2 border-red-500"
                   onClick={() => router.push('/hua')}
                 >
                   花蓮
                 </li>
+                <li className="my-1">
+                  <BirthdayCountdown />
+                </li>
+                
               </ul>
             )}
           </div>
@@ -74,7 +88,15 @@ export default function Nav() {
               Small BirthDay
             </li>
             <li>
-              <Card />
+              <div onClick={handleCardClick}>
+                <Card />
+              </div>
+            </li>
+            <li>
+              <BirthdayCountdown />
+            </li>
+            <li>
+              <MusicPlayer />
             </li>
             <li
               className="text-2xl ml-[1rem] cursor-pointer hover:text-green-700"
@@ -97,6 +119,7 @@ export default function Nav() {
           </ul>
         )}
       </nav>
+      {isCardOpen && <Card />}
     </div>
   );
 }

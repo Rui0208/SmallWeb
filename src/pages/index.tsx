@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import { InputForm } from '@/components/InputForm';
 import { Label } from '@/components/ui/label';
+import WishBoard from '@/components/WishBoard';
 
 export default function Home() {
   return (
@@ -165,6 +166,7 @@ export default function Home() {
         <ImageCarousel />
         <SheetCat />
         <InputForm />
+        <WishBoard />
       </div>
     </div>
   );
