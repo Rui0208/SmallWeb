@@ -51,10 +51,10 @@ export default function Card() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="bg-white p-4 shadow-lg rounded-lg"
+            className="bg-white p-4 shadow-lg rounded-lg flex flex-col items-center justify-center"
           >
             {!isPasswordCorrect ? (
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center justify-center">
                 <h2 className="text-xl mb-3">請輸入密碼</h2>
                 <input
                   type="password"
