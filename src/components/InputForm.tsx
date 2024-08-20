@@ -60,59 +60,68 @@ export function InputForm() {
   };
 
   return (
-    <div>
+    <div className="flex justify-center items-center  ">
       <form
-        className={`grid w-full justify-center items-center gap-3 pb-8 ${
-          isMobile ? 'px-4' : ''
+        className={`bg-white shadow-md rounded px-8 pt-6 pb-8  ${
+          isMobile ? 'w-full mx-4' : 'w-[400px]'
         }`}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex justify-center font-bold text-2xl text-cyan-500">
-          {'領取禮物'}
+        <h2 className="text-2xl font-bold text-center text-cyan-500 mb-6">
+          領取禮物
+        </h2>
+        
+        <div className="mb-4">
+          <Label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            姓名
+          </Label>
+          <Input
+            {...register('name', { required: '名字是必填的！' })}
+            placeholder="林雨寧"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          {errors.name && (
+            <p className="text-red-500 text-xs italic">{errors.name.message}</p>
+          )}
         </div>
-        <Label className="text-[1rem]" htmlFor="name">
-          姓名
-        </Label>
-        <Input
-          {...register('name', { required: '名字是必填的！' })}
-          placeholder="林雨寧"
-          className={isMobile ? 'w-full' : 'w-[20vw]'}
-        />
-        {errors.name && (
-          <span className="text-red-500 text-sm">{errors.name.message}</span>
-        )}
-        <Label className="text-[1rem]" htmlFor="email">
-          電子信箱
-        </Label>
-        <Input
-          {...register('email', { required: '信箱是必填的！' })}
-          placeholder="iu@gmail.com"
-          className={isMobile ? 'w-full' : 'w-[20vw]'}
-        />
-        {errors.email && (
-          <span className="text-red-500 text-sm">{errors.email.message}</span>
-        )}
-        <Label className="text-[1rem]" htmlFor="phone">
-          電話號碼
-        </Label>
-        <Input
-          {...register('phone', { required: '電話是必填的！' })}
-          placeholder="09"
-          className={isMobile ? 'w-full' : 'w-[20vw]'}
-        />
-        {errors.phone && (
-          <span className="text-red-500 text-sm">{errors.phone.message}</span>
-        )}
+        
+        <div className="mb-4">
+          <Label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            電子信箱
+          </Label>
+          <Input
+            {...register('email', { required: '信箱是必填的！' })}
+            placeholder="iu@gmail.com"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          {errors.email && (
+            <p className="text-red-500 text-xs italic">{errors.email.message}</p>
+          )}
+        </div>
+        
+        <div className="mb-6">
+          <Label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
+            電話號碼
+          </Label>
+          <Input
+            {...register('phone', { required: '電話是必填的！' })}
+            placeholder="09"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          {errors.phone && (
+            <p className="text-red-500 text-xs italic">{errors.phone.message}</p>
+          )}
+        </div>
 
-        <Button
-          className={`border bg-green-500 text-white p-4 ${
-            isMobile ? 'w-full' : 'w-[7vw]'
-          }`}
-          type="submit"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? '提交中...' : '送出'}
-        </Button>
+        <div className="flex items-center justify-center">
+          <Button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? '提交中...' : '送出'}
+          </Button>
+        </div>
       </form>
     </div>
   );
