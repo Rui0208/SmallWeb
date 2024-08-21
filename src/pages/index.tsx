@@ -90,7 +90,7 @@ export default function Home() {
 
       {/* 移动版布局 */}
       <div className="md:hidden">
-        <div className="grid grid-cols-1 gap-4 p-4">
+        <div className="relative">
           <Image
             src={'/images/hua9.jpeg'}
             alt={'photo1'}
@@ -99,6 +99,19 @@ export default function Home() {
             objectPosition="bottom"
             className="w-full h-[50vh] object-cover"
           />
+          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col justify-center items-center text-white">
+            <h1 className="text-4xl font-bold mb-4">プレゼント</h1>
+            <p className="text-2xl font-bold mb-2">にじゅうよんさい</p>
+            <p className="text-2xl font-bold mb-4">お誕生日おめでとう</p>
+            <div className="flex space-x-4 text-xl font-bold">
+              <span>2024</span>
+              <span>8月</span>
+              <span>31日</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="relative">
           <Image
             src={'/images/oth2.jpeg'}
             alt={'photo2'}
@@ -107,6 +120,12 @@ export default function Home() {
             objectPosition="bottom"
             className="w-full h-[50vh] object-cover"
           />
+          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col justify-center items-center text-white">
+            <p className="text-2xl font-black mb-4">気に入ってくれるといいな</p>
+          </div>
+        </div>
+        
+        <div className="relative">
           <Image
             src={'/images/hua16.jpeg'}
             alt={'photo3'}
@@ -115,6 +134,13 @@ export default function Home() {
             objectPosition="bottom"
             className="w-full h-[50vh] object-cover"
           />
+          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col justify-center items-center text-white">
+            <p className="text-5xl font-bold mb-2">夏</p>
+            <p className="text-3xl font-bold">なつ</p>
+          </div>
+        </div>
+        
+        <div className="relative">
           <Image
             src={'/images/oth3.jpeg'}
             alt={'photo4'}
@@ -123,38 +149,11 @@ export default function Home() {
             objectPosition="bottom"
             className="w-full h-[50vh] object-cover"
           />
-        </div>
-
-        {/* 移动版文字部分 */}
-        <div className="text-center my-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">プレゼント</h1>
-          <p className="text-2xl font-bold text-gray-900 mb-2">
-            にじゅうよんさい
-          </p>
-          <p className="text-2xl font-bold text-gray-900 mb-4">
-            お誕生日おめでとう
-          </p>
-          <div className="flex justify-center space-x-4 text-xl font-bold text-gray-900">
-            <span>2024</span>
-            <span>8月</span>
-            <span>31日</span>
+          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col justify-center items-center text-white">
+            <p className="text-xl font-bold mb-2">たんじょうびにこころから</p>
+            <p className="text-xl font-bold mb-2">の</p>
+            <p className="text-xl font-bold">しゅくふくをおくります</p>
           </div>
-        </div>
-        <div className="text-center my-8">
-          <p className="text-2xl font-black text-gray-900 mb-4">
-            気に入ってくれるといいな
-          </p>
-          <p className="text-5xl font-bold text-gray-900 mb-2">夏</p>
-          <p className="text-3xl font-bold text-gray-900">なつ</p>
-        </div>
-        <div className="text-center my-8">
-          <p className="text-xl font-bold text-gray-900 mb-2">
-            たんじょうびにこころから
-          </p>
-          <p className="text-xl font-bold text-gray-900 mb-2">の</p>
-          <p className="text-xl font-bold text-gray-900">
-            しゅくふくをおくります
-          </p>
         </div>
       </div>
 

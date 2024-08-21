@@ -31,8 +31,8 @@ const BirthdayCountdown: React.FC = () => {
   }, []);
 
   return (
-    <div className="text-center my-4">
-      <h2 className="text-xl font-bold mb-2">生日倒數</h2>
+    <div className="text-center ">
+      <h2 className="text-xl font-bold">生日倒數</h2>
       <div className="flex justify-center space-x-4">
         <div>
           <span className="text-lg font-bold">{timeLeft.days}</span>
@@ -40,7 +40,7 @@ const BirthdayCountdown: React.FC = () => {
         </div>
         <div>
           <span className="text-lg font-bold">{timeLeft.hours}</span>
-          <p>时</p>
+          <p>時</p>
         </div>
         <div>
           <span className="text-lg font-bold">{timeLeft.minutes}</span>

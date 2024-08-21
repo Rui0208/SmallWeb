@@ -37,36 +37,37 @@ export default function Yilan() {
 
   if (isMobile) {
     return (
-      <div className="bg-amber-100 p-4">
-        <h1 className="text-4xl font-bold text-gray-600 mb-4">YILAN</h1>
-        <p className="text-xl font-bold text-gray-600 mb-4">
+      <div className="bg-amber-100">
+        <h1 className="text-4xl font-bold text-gray-600 mb-4 p-4">YILAN</h1>
+        <p className="text-xl font-bold text-gray-600 mb-4 px-4">
           February.19 ~ February.20
         </p>
         <div className="grid grid-cols-1 gap-4">
           {photos.map((photo, index) => (
-            <Image
-              key={index}
-              src={photo.src}
-              alt={`photo${index + 1}`}
-              width={1600}
-              height={800}
-              className="w-full h-auto object-cover rounded-lg"
-            />
+            <div key={index} className="relative">
+              <Image
+                src={photo.src}
+                alt={`photo${index + 1}`}
+                width={1600}
+                height={800}
+                className="w-full h-auto object-cover"
+              />
+              {index === 0 && (
+                <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-white bg-black bg-opacity-50">
+                  <p className="text-2xl font-bold mb-2">Spring is as warm as your smile</p>
+                  <p className="text-3xl font-bold mb-4">卡皮巴拉! ! !</p>
+                </div>
+              )}
+              {index === photos.length - 1 && (
+                <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-white bg-black bg-opacity-50">
+                  <p className="text-3xl font-bold mb-4">LOVE YOU</p>
+                  <p className="text-2xl font-bold mb-2">L Y T</p>
+                  <p className="text-xl font-bold mb-2">⏰ is very good</p>
+                  <p className="text-xl font-bold">Let's go again next time</p>
+                </div>
+              )}
+            </div>
           ))}
-        </div>
-        <div className="mt-8">
-          <p className="text-2xl font-bold text-gray-600 mb-2">
-            Spring is as warm as your smile
-          </p>
-          <p className="text-3xl font-bold text-gray-600 mb-4">卡皮巴拉! ! !</p>
-          <p className="text-3xl font-bold text-gray-600 mb-4">LOVE YOU</p>
-          <p className="text-2xl font-bold text-gray-600 mb-2">L Y T</p>
-          <p className="text-xl font-bold text-gray-600 mb-2">
-            ⏰ is very good
-          </p>
-          <p className="text-xl font-bold text-gray-600">
-            {" Let's go again next time"}
-          </p>
         </div>
       </div>
     );

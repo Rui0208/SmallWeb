@@ -37,33 +37,34 @@ export default function Tainan() {
 
   if (isMobile) {
     return (
-      <div className="bg-rose-100 p-4">
-        <h1 className="text-4xl font-bold text-gray-600 mb-4">Tainan</h1>
-        <p className="text-xl font-bold text-gray-600 mb-4">2024 04</p>
-        <div className="grid grid-cols-1 gap-4">
-          {photos.map((photo, index) => (
+      <div className="bg-rose-100">
+        {photos.map((photo, index) => (
+          <div key={index} className="relative mb-4">
             <Image
-              key={index}
               src={photo.src}
               alt={`photo${index + 1}`}
               width={1600}
               height={800}
               className="w-full h-auto object-cover rounded-lg"
             />
-          ))}
-        </div>
-        <div className="mt-8">
-          <p className="text-2xl font-bold text-gray-600 mb-2">
-            Happy Birthday
-          </p>
-          <p className="text-xl font-bold text-gray-600 mb-4">
-            You look absolutely radiant
-          </p>
-          <p className="text-2xl font-bold text-gray-600 mb-4">
-            May you always be happy
-          </p>
-          <p className="text-xl font-bold text-gray-600">LYT</p>
-        </div>
+            <div className="absolute inset-0 flex flex-col justify-between p-4 bg-black bg-opacity-50 text-white">
+              {index === 0 && (
+                <>
+                  <h1 className="text-4xl font-bold">Tainan</h1>
+                  <p className="text-xl font-bold">2024 04</p>
+                </>
+              )}
+              {index === photos.length - 1 && (
+                <div className="mt-auto">
+                  <p className="text-2xl font-bold mb-2">Happy Birthday</p>
+                  <p className="text-xl font-bold mb-4">You look absolutely radiant</p>
+                  <p className="text-2xl font-bold mb-4">May you always be happy</p>
+                  <p className="text-xl font-bold">LYT</p>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     );
   }

@@ -37,32 +37,36 @@ export default function Hualien() {
 
   if (isMobile) {
     return (
-      <div className="bg-green-50 p-4">
-        <h1 className="text-4xl font-bold text-gray-600 mb-4">Hualien</h1>
-        <p className="text-xl font-bold text-gray-600 mb-4">SUMMER</p>
+      <div className="bg-green-50">
+        <h1 className="text-4xl font-bold text-gray-600 mb-4 p-4">Hualien</h1>
+        <p className="text-xl font-bold text-gray-600 mb-4 px-4">SUMMER</p>
         <div className="grid grid-cols-1 gap-4">
           {photos.map((photo, index) => (
-            <Image
-              key={index}
-              src={photo.src}
-              alt={`photo${index + 1}`}
-              width={1600}
-              height={800}
-              className="w-full h-auto object-cover rounded-lg"
-            />
+            <div key={index} className="relative">
+              <Image
+                src={photo.src}
+                alt={`photo${index + 1}`}
+                width={1600}
+                height={800}
+                className="w-full h-auto object-cover"
+              />
+              {index === 0 && (
+                <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-white bg-black bg-opacity-50">
+                  <p className="text-3xl font-bold mb-4">Hualien</p>
+                  <p className="text-xl font-bold mb-2">SUMMER</p>
+                </div>
+              )}
+              {index === photos.length - 1 && (
+                <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-white bg-black bg-opacity-50">
+                  <p className="text-2xl font-bold mb-2">Happy Birthday</p>
+                  <p className="text-xl font-bold mb-4">You're so beautiful</p>
+                  <p className="text-xl font-bold mb-2">Because of you,</p>
+                  <p className="text-xl font-bold mb-4">every day is a good day</p>
+                  <p className="text-2xl font-bold">LYT</p>
+                </div>
+              )}
+            </div>
           ))}
-        </div>
-        <div className="mt-8">
-          <p className="text-2xl font-bold text-gray-600 mb-2">
-            Happy Birthday
-          </p>
-          <p className="text-xl font-bold text-gray-600 mb-4">
-            {"You're so beautiful"}
-          </p>
-          <p className="text-2xl font-bold text-gray-600 mb-4">
-            Because of you, every day is a good day
-          </p>
-          <p className="text-xl font-bold text-gray-600">LYT</p>
         </div>
       </div>
     );
