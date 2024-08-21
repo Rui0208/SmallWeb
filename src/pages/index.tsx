@@ -30,7 +30,7 @@ export default function Home() {
           width={1600}
           height={800}
           objectPosition="bottom"
-          className="h-[60vh] w-[50vw] object-cover object-center mt-[10rem] absolute top-[20vh] right-[0vw]"
+          className="h-[60vh] w-[50vw] object-cover object-center mt-[10rem] absolute top-[21vh] right-[0vw]"
         />
         <Image
           src={'/images/hua16.jpeg'}

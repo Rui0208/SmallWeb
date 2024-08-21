@@ -84,7 +84,7 @@ const WishBoard = () => {
 
   return (
     <div className="flex flex-col justify-center items-center my-12 w-[80%] mx-auto">
-      <h2 className="text-3xl font-bold mb-6 text-emerald-500">生日祝福留言板</h2>
+      <h2 className="text-3xl font-bold mb-6 text-emerald-500">生日祝福</h2>
       <div className="mb-6 w-full">
         <input
           type="text"
@@ -103,7 +103,7 @@ const WishBoard = () => {
           onClick={addWish}
           className="bg-emerald-400 text-white p-3 rounded-full w-full hover:bg-emerald-500 transition duration-300"
         >
-          送出祝福
+          送出
         </button>
       </div>
       <div className="flex justify-between items-center w-full mb-4">
