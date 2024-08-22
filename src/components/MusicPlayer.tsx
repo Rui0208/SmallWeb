@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import {
   Play,
   Pause,
@@ -16,14 +16,14 @@ const MusicPlayer: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const playlist = [
+  const playlist = useMemo(() => [
     { title: 'Love Story', src: '/music/Lovestory.mp3' },
     {
       title: '偶超級宇宙無敵霹靂愛尼',
       src: '/music/偶超級宇宙無敵霹靂愛尼.mp3',
     },
     { title: '星星', src: '/music/星星.mp3' },
-  ];
+  ], []);
 
   useEffect(() => {
     audioRef.current = new Audio(playlist[currentTrackIndex].src);
