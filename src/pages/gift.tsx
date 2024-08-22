@@ -49,6 +49,18 @@ function CarouselDemo() {
   );
 }
 
+function VideoPlayer() {
+  return (
+    <video
+      controls
+      className="w-full max-w-xs rounded-lg shadow-lg"
+    >
+      <source src="/video/小隻24生日.mp4" type="video/mp4" />
+      您的浏览器不支持视频标签。
+    </video>
+  );
+}
+
 export default function ResizableSlide() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -74,11 +86,15 @@ export default function ResizableSlide() {
 
   if (isMobile) {
     return (
-      <div className="p-6 bg-rose-100 min-h-screen flex flex-col items-center justify-center">
+      <div className="p-6 bg-gradient-to-r from-pink-100 to-rose-100 min-h-screen flex flex-col items-center justify-center">
+        <h1 className="text-3xl font-bold text-rose-600 mb-8">生日禮物</h1>
         <CarouselDemo />
-        <div className="mt-8 text-center space-y-2">
+        <div className="mt-12 mb-12">
+          <VideoPlayer />
+        </div>
+        <div className="mt-8 text-center space-y-3 bg-white bg-opacity-70 p-6 rounded-lg shadow-lg">
           {giftMessage.map((line, index) => (
-            <p key={index} className="text-lg font-medium text-gray-800">{line}</p>
+            <p key={index} className="text-lg font-medium text-gray-800 leading-relaxed">{line}</p>
           ))}
         </div>
       </div>
@@ -86,25 +102,31 @@ export default function ResizableSlide() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-rose-50 p-8">
-      <ResizablePanelGroup
-        direction="horizontal"
-        className="min-h-[80vh] w-full max-w-6xl rounded-xl shadow-lg overflow-hidden"
-      >
-        <ResizablePanel defaultSize={60} className="bg-white">
-          <div className="h-full flex items-center justify-center p-8">
-            <CarouselDemo />
-          </div>
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={40} className="bg-rose-100">
-          <div className="h-full flex flex-col items-center justify-center p-8 space-y-4">
-            {giftMessage.map((line, index) => (
-              <p key={index} className="text-lg font-medium text-gray-800 text-center">{line}</p>
-            ))}
-          </div>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+    <div className="bg-gradient-to-br from-pink-50 to-rose-100 min-h-screen py-12">
+      <div className="container mx-auto px-4">
+        <h1 className="text-4xl font-bold text-rose-600 text-center mb-12">生日禮物</h1>
+        <div className="flex flex-col lg:flex-row justify-center items-center gap-12">
+          <ResizablePanelGroup
+            direction="horizontal"
+            className="min-h-[80vh] w-full max-w-4xl rounded-xl shadow-2xl overflow-hidden"
+          >
+            <ResizablePanel defaultSize={60} className="bg-white">
+              <div className="h-full flex flex-col items-center justify-center p-8 space-y-8">
+                <CarouselDemo />
+                <VideoPlayer />
+              </div>
+            </ResizablePanel>
+            <ResizableHandle withHandle />
+            <ResizablePanel defaultSize={40} className="bg-rose-50">
+              <div className="h-full flex flex-col items-center justify-center p-8 space-y-4">
+                {giftMessage.map((line, index) => (
+                  <p key={index} className="text-lg font-medium text-gray-800 text-center leading-relaxed">{line}</p>
+                ))}
+              </div>
+            </ResizablePanel>
+          </ResizablePanelGroup>
+        </div>
+      </div>
     </div>
   );
 }

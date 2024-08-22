@@ -65,12 +65,20 @@ export default function Card() {
                   onChange={(e) => setPassword(e.target.value)}
                   className="border-2 border-gray-300 p-2 mb-4 w-full rounded-md focus:outline-none focus:border-blue-500 transition-colors duration-300"
                 />
-                <button
-                  onClick={handlePasswordSubmit}
-                  className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors duration-300"
-                >
-                  確認
-                </button>
+                <div className="flex justify-between w-full">
+                  <button
+                    onClick={handlePasswordSubmit}
+                    className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors duration-300"
+                  >
+                    確認
+                  </button>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="bg-gray-300 text-gray-700 px-6 py-2 rounded-full hover:bg-gray-400 transition-colors duration-300"
+                  >
+                    取消
+                  </button>
+                </div>
               </div>
             ) : (
               <>
