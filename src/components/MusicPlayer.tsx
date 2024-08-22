@@ -36,7 +36,7 @@ const MusicPlayer: React.FC = () => {
         audioRef.current = null;
       }
     };
-  }, [currentTrackIndex]);
+  }, [currentTrackIndex, playlist]);
 
   const togglePlay = () => {
     if (audioRef.current) {
