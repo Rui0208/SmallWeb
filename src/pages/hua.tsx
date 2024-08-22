@@ -59,7 +59,7 @@ export default function Hualien() {
               {index === photos.length - 1 && (
                 <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-white bg-black bg-opacity-50">
                   <p className="text-2xl font-bold mb-2">Happy Birthday</p>
-                  <p className="text-xl font-bold mb-4">You're so beautiful</p>
+                  <p className="text-xl font-bold mb-4">You&apos;re so beautiful</p>
                   <p className="text-xl font-bold mb-2">Because of you,</p>
                   <p className="text-xl font-bold mb-4">every day is a good day</p>
                   <p className="text-2xl font-bold">LYT</p>
@@ -117,7 +117,7 @@ export default function Hualien() {
           Happy BirthDay
         </div>
         <div className="absolute text-black p-4 text-[1rem] font-bold  left-[10vw] bottom-[28vh]">
-          {"You're so beautiful"}
+          You&apos;re so beautiful
         </div>
         <div className="absolute text-black p-4 text-[1.25rem] font-bold  left-[52vw] bottom-[30vh]">
           Hualien

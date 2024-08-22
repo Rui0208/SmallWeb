@@ -63,7 +63,7 @@ export default function Yilan() {
                   <p className="text-3xl font-bold mb-4">LOVE YOU</p>
                   <p className="text-2xl font-bold mb-2">L Y T</p>
                   <p className="text-xl font-bold mb-2">⏰ is very good</p>
-                  <p className="text-xl font-bold">Let's go again next time</p>
+                  <p className="text-xl font-bold">Let&apos;s go again next time</p>
                 </div>
               )}
             </div>
@@ -206,7 +206,7 @@ export default function Yilan() {
           ⏰ is very good
         </div>
         <div className="absolute text-[2.25rem]   font-bold  text-gray-600 left-[10vw] bottom-[14vh] ">
-          {" Let's go again next time"}
+          {" Let&apos;s go again next time"}
         </div>
       </div>
     </div>
