@@ -6,6 +6,8 @@ import {
   VolumeX,
   ChevronUp,
   ChevronDown,
+  SkipForward,
+  SkipBack,
 } from 'lucide-react';
 
 const MusicPlayer: React.FC = () => {
@@ -14,6 +16,8 @@ const MusicPlayer: React.FC = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const playlist = useMemo(() => [
@@ -28,15 +32,39 @@ const MusicPlayer: React.FC = () => {
   useEffect(() => {
     audioRef.current = new Audio(playlist[currentTrackIndex].src);
     audioRef.current.loop = false;
+    audioRef.current.volume = volume;
     audioRef.current.play();
     setIsPlaying(true);
+
+    audioRef.current.addEventListener('timeupdate', updateProgress);
+    audioRef.current.addEventListener('loadedmetadata', () => {
+      setDuration(audioRef.current!.duration);
+    });
+    audioRef.current.addEventListener('ended', playNextTrack);
+
     return () => {
       if (audioRef.current) {
+        audioRef.current.removeEventListener('timeupdate', updateProgress);
+        audioRef.current.removeEventListener('ended', playNextTrack);
         audioRef.current.pause();
         audioRef.current = null;
       }
     };
   }, [currentTrackIndex, playlist]);
+
+  const updateProgress = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  };
+
+  const playNextTrack = () => {
+    setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % playlist.length);
+  };
+
+  const playPreviousTrack = () => {
+    setCurrentTrackIndex((prevIndex) => (prevIndex - 1 + playlist.length) % playlist.length);
+  };
 
   const togglePlay = () => {
     if (audioRef.current) {
@@ -68,6 +96,14 @@ const MusicPlayer: React.FC = () => {
   const handleTrackChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newIndex = parseInt(e.target.value);
     setCurrentTrackIndex(newIndex);
+  };
+
+  const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTime = parseFloat(e.target.value);
+    setCurrentTime(newTime);
+    if (audioRef.current) {
+      audioRef.current.currentTime = newTime;
+    }
   };
 
   const toggleExpand = () => {
@@ -107,6 +143,22 @@ const MusicPlayer: React.FC = () => {
               </option>
             ))}
           </select>
+          <div className="flex items-center space-x-2 w-full">
+            <button onClick={playPreviousTrack} className="focus:outline-none text-white">
+              <SkipBack size={20} />
+            </button>
+            <input
+              type="range"
+              min="0"
+              max={duration}
+              value={currentTime}
+              onChange={handleProgressChange}
+              className="w-full"
+            />
+            <button onClick={playNextTrack} className="focus:outline-none text-white">
+              <SkipForward size={20} />
+            </button>
+          </div>
           <div className="flex items-center space-x-2">
             <input
               type="range"
