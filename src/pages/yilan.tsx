@@ -206,7 +206,7 @@ export default function Yilan() {
           ⏰ is very good
         </div>
         <div className="absolute text-[2.25rem]   font-bold  text-gray-600 left-[10vw] bottom-[14vh] ">
-          {" Let&apos;s go again next time"}
+          {" Let‘s go again next time"}
         </div>
       </div>
     </div>

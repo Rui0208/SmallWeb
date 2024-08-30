@@ -32,7 +32,7 @@ export default function SheetCat() {
     "喵～生日快樂！",
     "希望妳生日過得很開心！",
     "記得給我更多零食哦～",
-    "生日快樂，我的主人！"
+    "生日快樂!!！"
   ];
 
   return (
