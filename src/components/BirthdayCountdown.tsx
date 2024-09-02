@@ -9,7 +9,7 @@ const BirthdayCountdown: React.FC = () => {
   });
 
   useEffect(() => {
-    const birthdayDate = new Date('2024-08-31T00:00:00');
+    const birthdayDate = new Date('2025-08-31T00:00:00');
 
     const timer = setInterval(() => {
       const now = new Date();
