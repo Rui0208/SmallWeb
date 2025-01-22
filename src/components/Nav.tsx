@@ -5,6 +5,7 @@ import { Menu } from 'lucide-react';
 import BirthdayCountdown from './BirthdayCountdown';
 import MusicPlayer from './MusicPlayer';
 import { Url } from 'next/dist/shared/lib/router/router';
+import PrizeWheel from '@/pages/prize-wheel';
 
 export default function Nav() {
   const router = useRouter();
@@ -12,7 +13,7 @@ export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
-
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -50,13 +51,18 @@ export default function Nav() {
           <div className="border-b-2 min-h-[5vh] font-bold shadow-md bg-white w-full fixed left-0 top-0 z-50">
             <div className="flex justify-between items-center px-4 py-2">
               <span
-                className="text-xl text-gray-800 cursor-pointer hover:text-gray-600 transition duration-300"
+                className="text-lg md:text-xl text-gray-800 cursor-pointer hover:text-gray-600 transition duration-300"
                 onClick={() => handleNavClick('/')}
               >
                 Small BirthDay
               </span>
-              <span><MusicPlayer/></span>
-              <Menu onClick={toggleMenu} className="cursor-pointer w-6 h-6 text-gray-800 hover:text-gray-600 transition duration-300" />
+              <span className="flex items-center gap-2">
+                <MusicPlayer />
+                <Menu
+                  onClick={toggleMenu}
+                  className="cursor-pointer w-6 h-6 text-gray-800 hover:text-gray-600 transition duration-300"
+                />
+              </span>
             </div>
             {isMenuOpen && (
               <ul className="flex flex-col items-center py-2 bg-white z-50 rounded-b-lg shadow-lg">
@@ -83,6 +89,51 @@ export default function Nav() {
                 >
                   花蓮
                 </li>
+                <li className="w-full text-center">
+                  <div
+                    className="text-lg cursor-pointer hover:text-gray-600 my-2 border-b-2 border-gray-200 pb-1 transition duration-300"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
+                    尾牙活動
+                  </div>
+                  {isDropdownOpen && (
+                    <ul className="bg-white py-2 w-full">
+                      <li>
+                        <div
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                          onClick={() => {
+                            handleNavClick('/prize-wheel');
+                            setIsDropdownOpen(false);
+                          }}
+                        >
+                          尾牙抽獎
+                        </div>
+                      </li>
+                      <li>
+                        <div
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                          onClick={() => {
+                            handleNavClick('/bingo-game');
+                            setIsDropdownOpen(false);
+                          }}
+                        >
+                          Bingo
+                        </div>
+                      </li>
+                      <li>
+                        <div
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                          onClick={() => {
+                            handleNavClick('/new-year-card');
+                            setIsDropdownOpen(false);
+                          }}
+                        >
+                          新年卡片
+                        </div>
+                      </li>
+                    </ul>
+                  )}
+                </li>
                 <li className="my-2">
                   <BirthdayCountdown />
                 </li>
@@ -90,41 +141,96 @@ export default function Nav() {
             )}
           </div>
         ) : (
-          <ul className="flex justify-around border-b-4 min-h-[10vh] font-bold shadow-lg bg-white w-[100%] items-center fixed left-0 top-0 z-50">
+          <ul className="flex justify-around border-b-4 min-h-[10vh] font-bold shadow-lg bg-white w-full items-center fixed left-0 top-0 z-50 px-4">
             <li
-              className="text-4xl text-gray-800 cursor-pointer hover:text-gray-600 transition duration-300"
+              className="text-2xl lg:text-4xl text-gray-800 cursor-pointer hover:text-gray-600 transition duration-300"
               onClick={() => handleNavClick('/')}
             >
               Small BirthDay
             </li>
-            <li>
+            <li className="hidden md:block">
               <div onClick={handleCardClick} className="card-trigger">
                 <Card />
               </div>
             </li>
-            <li>
+            <li className="hidden lg:block">
               <BirthdayCountdown />
             </li>
             <li>
               <MusicPlayer />
             </li>
             <li
-              className="text-2xl ml-[1rem] cursor-pointer hover:text-gray-600 transition duration-300"
+              className="text-lg md:text-xl lg:text-2xl cursor-pointer hover:text-gray-600 transition duration-300"
               onClick={() => handleNavClick('/yilan')}
             >
               宜蘭
             </li>
             <li
-              className="text-2xl cursor-pointer hover:text-gray-600 transition duration-300"
+              className="text-lg md:text-xl lg:text-2xl cursor-pointer hover:text-gray-600 transition duration-300"
               onClick={() => handleNavClick('/tainan')}
             >
               台南
             </li>
             <li
-              className="text-2xl cursor-pointer hover:text-gray-600 transition duration-300"
+              className="text-lg md:text-xl lg:text-2xl cursor-pointer hover:text-gray-600 transition duration-300"
               onClick={() => handleNavClick('/hua')}
             >
               花蓮
+            </li>
+            <li className="relative group">
+              <div
+                className="text-lg md:text-xl lg:text-2xl cursor-pointer hover:text-gray-600 transition duration-300 flex items-center"
+                onClick={() => {
+                  if (isMobile) {
+                    setIsDropdownOpen(!isDropdownOpen);
+                  }
+                }}
+                onMouseEnter={() => !isMobile && setIsDropdownOpen(true)}
+                onMouseLeave={() => !isMobile && setIsDropdownOpen(false)}
+              >
+                尾牙活動
+              </div>
+              <ul
+                className={`absolute bg-white shadow-lg rounded-md py-2 w-[120px] transition-all duration-300 ${
+                  isDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+                }`}
+                onMouseEnter={() => !isMobile && setIsDropdownOpen(true)}
+                onMouseLeave={() => !isMobile && setIsDropdownOpen(false)}
+              >
+                <li>
+                  <div
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => {
+                      handleNavClick('/prize-wheel');
+                      if (isMobile) setIsDropdownOpen(false);
+                    }}
+                  >
+                    尾牙抽獎
+                  </div>
+                </li>
+                <li>
+                  <div
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => {
+                      handleNavClick('/bingo-game');
+                      if (isMobile) setIsDropdownOpen(false);
+                    }}
+                  >
+                    Bingo
+                  </div>
+                </li>
+                <li>
+                  <div
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => {
+                      handleNavClick('/new-year-card');
+                      if (isMobile) setIsDropdownOpen(false);
+                    }}
+                  >
+                    新年卡片
+                  </div>
+                </li>
+              </ul>
             </li>
           </ul>
         )}
