@@ -198,7 +198,7 @@ export default function PrizeWheel() {
       <ResultModal />
       <PrizeProbabilityModal />
 
-      <div className="container mx-auto px-4 py-4 sm:py-8 mt-12">
+      <div className="container mx-auto px-4 py-4 sm:py-8 mt-16">
         {/* 標題區域 */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}
