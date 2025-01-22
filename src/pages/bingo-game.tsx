@@ -387,8 +387,8 @@ export default function BingoGame() {
                             cell.marked
                               ? 'bg-blue-500 text-white'
                               : cell.value
-                                ? 'bg-blue-100 text-blue-900 hover:bg-blue-200'
-                                : 'bg-blue-50/10 text-white hover:bg-blue-50/20'
+                                ? 'bg-blue-800 text-blue-200 hover:bg-blue-700'
+                                : 'bg-blue-900/50 text-white hover:bg-blue-800/50'
                           }`}
                       >
                         {cell.value}
@@ -438,8 +438,8 @@ export default function BingoGame() {
                             cell.marked
                               ? 'bg-blue-500 text-white'
                               : cell.value
-                                ? 'bg-blue-100 text-blue-900 hover:bg-blue-200'
-                                : 'bg-blue-50/10 text-white hover:bg-blue-50/20'
+                                ? 'bg-blue-800 text-blue-200 hover:bg-blue-700'
+                                : 'bg-blue-900/50 text-white hover:bg-blue-800/50'
                           }`}
                       >
                         {cell.value}
