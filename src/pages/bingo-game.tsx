@@ -387,7 +387,7 @@ export default function BingoGame() {
                             cell.marked
                               ? 'bg-blue-500 text-white'
                               : cell.value
-                                ? 'bg-white/20 text-white hover:bg-white/30'
+                                ? 'bg-white text-blue-900 hover:bg-blue-100'
                                 : 'bg-white/10 text-white hover:bg-white/20'
                           }`}
                       >
@@ -438,7 +438,7 @@ export default function BingoGame() {
                             cell.marked
                               ? 'bg-blue-500 text-white'
                               : cell.value
-                                ? 'bg-white/20 text-white hover:bg-white/30'
+                                ? 'bg-white text-blue-900 hover:bg-blue-100'
                                 : 'bg-white/10 text-white hover:bg-white/20'
                           }`}
                       >
