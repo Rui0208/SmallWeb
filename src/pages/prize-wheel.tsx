@@ -54,7 +54,9 @@ export default function PrizeWheel() {
   const handleSpinClick = () => {
     if (!mustSpin) {
       const newPrizeNumber = getRandomPrizeByWeight();
+      console.log('新獎品索引:', newPrizeNumber); // 添加調試日誌
       setPrizeNumber(newPrizeNumber);
+      setWinningResult(''); // 重置獎品結果
       setMustSpin(true);
       setShowResult(false);
       setSpinCount((prev) => prev + 1);
@@ -77,10 +79,17 @@ export default function PrizeWheel() {
 
   const handleStopSpinning = () => {
     setMustSpin(false);
-    const result = prizeData[prizeNumber].option;
+    // 使用當前的 prizeNumber 確保結果一致性
+    const currentPrize = prizeData[prizeNumber];
+    const result = currentPrize.option;
+    console.log('停止時獎品索引:', prizeNumber, '獎品結果:', result); // 添加調試日誌
+
+    // 確保狀態更新的順序
     setWinningResult(result);
-    setShowResult(true);
-    setIsModalOpen(true);
+    setTimeout(() => {
+      setShowResult(true);
+      setIsModalOpen(true);
+    }, 100);
 
     // 触发多重烟花效果
     const duration = 3 * 1000;
@@ -195,7 +204,6 @@ export default function PrizeWheel() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900">
       {/* 添加 Modals */}
-      <ResultModal />
       <PrizeProbabilityModal />
 
       <div className="container mx-auto px-4 py-4 sm:py-8 mt-16">
@@ -256,12 +264,21 @@ export default function PrizeWheel() {
                   />
 
                   {/* 修改指針的定位和樣式 */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -mt-2 z-10">
+                  <div className="absolute top-0 left-[50.5%] transform -translate-x-1/2 -mt-6 z-10">
                     <motion.div
                       animate={{ scale: [1, 1.1, 1] }}
                       transition={{ duration: 1, repeat: Infinity }}
                     >
-                      <div className="w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-t-[30px] border-t-yellow-400 filter drop-shadow-lg"></div>
+                      <div
+                        className="w-0 h-0 
+                          border-l-[10px] border-l-transparent 
+                          border-r-[10px] border-r-transparent 
+                          border-t-[20px] border-t-yellow-400 
+                          filter drop-shadow-lg"
+                        style={{
+                          transform: 'translateY(4px)',
+                        }}
+                      ></div>
                     </motion.div>
                   </div>
                 </div>
@@ -277,25 +294,6 @@ export default function PrizeWheel() {
               >
                 {mustSpin ? '轉盤旋轉中...' : '開始抽獎'}
               </motion.button>
-
-              {/* 結果顯示 */}
-              <AnimatePresence>
-                {showResult && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="text-center"
-                  >
-                    <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                      🎊 恭喜抽中 🎊
-                    </h2>
-                    <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-200 to-yellow-500 text-transparent bg-clip-text">
-                      {winningResult}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
           </motion.div>
         </div>
