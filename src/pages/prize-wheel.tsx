@@ -198,12 +198,12 @@ export default function PrizeWheel() {
       <ResultModal />
       <PrizeProbabilityModal />
 
-      <div className="container mx-auto px-4 py-4 sm:py-8">
+      <div className="container mx-auto px-4 py-4 sm:py-8 mt-12">
         {/* 標題區域 */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="text-center mb-8 sm:mb-12 mt-8 sm:mt-12 relative"
+          className="text-center mb-8 sm:mb-12 mt-8 sm:mt-12 relative "
         >
           <h1 className="text-3xl sm:text-5xl font-bold text-white mb-4 drop-shadow-lg">
             🎉 尾牙抽獎轉盤 🎉
