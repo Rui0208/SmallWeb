@@ -255,13 +255,13 @@ export default function PrizeWheel() {
                     spinDuration={0.8}
                   />
 
-                  {/* 指針 */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-6 z-10">
+                  {/* 修改指針的定位和樣式 */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -mt-2 z-10">
                     <motion.div
                       animate={{ scale: [1, 1.1, 1] }}
                       transition={{ duration: 1, repeat: Infinity }}
                     >
-                      <div className="w-0 h-0 border-l-[25px] border-l-transparent border-r-[25px] border-r-transparent border-t-[50px] border-t-yellow-400 drop-shadow-lg"></div>
+                      <div className="w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-t-[30px] border-t-yellow-400 filter drop-shadow-lg"></div>
                     </motion.div>
                   </div>
                 </div>
