@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Wheel } from 'react-custom-roulette';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+// 动态导入轮盘组件，并禁用 SSR
+const Roulette = dynamic(
+  () => import('react-custom-roulette').then((mod) => mod.Wheel),
+  { ssr: false },
+);
 
 export default function PrizeWheel() {
   const [mustSpin, setMustSpin] = useState(false);
@@ -231,7 +238,7 @@ export default function PrizeWheel() {
 
                 {/* 轉盤組件 */}
                 <div className="relative">
-                  <Wheel
+                  <Roulette
                     mustStartSpinning={mustSpin}
                     prizeNumber={prizeNumber}
                     data={prizeData}

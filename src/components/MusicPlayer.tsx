@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+} from 'react';
 import {
   Play,
   Pause,
@@ -20,50 +26,62 @@ const MusicPlayer: React.FC = () => {
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const playlist = useMemo(() => [
-    { title: 'Love Story', src: '/music/Lovestory.mp3' },
-    {
-      title: '偶超級宇宙無敵霹靂愛尼',
-      src: '/music/偶超級宇宙無敵霹靂愛尼.mp3',
-    },
-    { title: '星星', src: '/music/星星.mp3' },
-  ], []);
-
+  const playlist = useMemo(
+    () => [
+      { title: 'Love Story', src: '/music/Lovestory.mp3' },
+      {
+        title: '偶超級宇宙無敵霹靂愛尼',
+        src: '/music/偶超級宇宙無敵霹靂愛尼.mp3',
+      },
+      { title: '星星', src: '/music/星星.mp3' },
+    ],
+    [],
+  );
+  const updateProgress = useCallback(() => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  }, []);
   useEffect(() => {
+    const handleTrackEnd = () => {
+      setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % playlist.length);
+    };
+
     audioRef.current = new Audio(playlist[currentTrackIndex].src);
     audioRef.current.loop = false;
-    audioRef.current.volume = volume;
-    audioRef.current.play();
-    setIsPlaying(true);
+    audioRef.current.volume = isMuted ? 0 : volume;
+
+    if (isPlaying) {
+      audioRef.current.play().catch((error) => {
+        console.error('播放失败:', error);
+        setIsPlaying(false);
+      });
+    }
 
     audioRef.current.addEventListener('timeupdate', updateProgress);
     audioRef.current.addEventListener('loadedmetadata', () => {
       setDuration(audioRef.current!.duration);
     });
-    audioRef.current.addEventListener('ended', playNextTrack);
+    audioRef.current.addEventListener('ended', handleTrackEnd);
 
     return () => {
       if (audioRef.current) {
         audioRef.current.removeEventListener('timeupdate', updateProgress);
-        audioRef.current.removeEventListener('ended', playNextTrack);
+        audioRef.current.removeEventListener('ended', handleTrackEnd);
         audioRef.current.pause();
         audioRef.current = null;
       }
     };
-  }, [currentTrackIndex, playlist]);
-
-  const updateProgress = () => {
-    if (audioRef.current) {
-      setCurrentTime(audioRef.current.currentTime);
-    }
-  };
+  }, [currentTrackIndex, playlist, isPlaying, isMuted, volume, updateProgress]);
 
   const playNextTrack = () => {
     setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % playlist.length);
   };
 
   const playPreviousTrack = () => {
-    setCurrentTrackIndex((prevIndex) => (prevIndex - 1 + playlist.length) % playlist.length);
+    setCurrentTrackIndex(
+      (prevIndex) => (prevIndex - 1 + playlist.length) % playlist.length,
+    );
   };
 
   const togglePlay = () => {
@@ -83,13 +101,16 @@ const MusicPlayer: React.FC = () => {
     if (audioRef.current) {
       audioRef.current.volume = newVolume;
     }
-    setIsMuted(newVolume === 0);
+    if (newVolume > 0) {
+      setIsMuted(false);
+    }
   };
 
   const toggleMute = () => {
     if (audioRef.current) {
-      audioRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
+      const newMutedState = !isMuted;
+      setIsMuted(newMutedState);
+      audioRef.current.volume = newMutedState ? 0 : volume;
     }
   };
 
@@ -144,7 +165,10 @@ const MusicPlayer: React.FC = () => {
             ))}
           </select>
           <div className="flex items-center space-x-2 w-full">
-            <button onClick={playPreviousTrack} className="focus:outline-none text-white">
+            <button
+              onClick={playPreviousTrack}
+              className="focus:outline-none text-white"
+            >
               <SkipBack size={20} />
             </button>
             <input
@@ -155,7 +179,10 @@ const MusicPlayer: React.FC = () => {
               onChange={handleProgressChange}
               className="w-full"
             />
-            <button onClick={playNextTrack} className="focus:outline-none text-white">
+            <button
+              onClick={playNextTrack}
+              className="focus:outline-none text-white"
+            >
               <SkipForward size={20} />
             </button>
           </div>
