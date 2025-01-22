@@ -66,16 +66,21 @@ export default function BingoGame() {
 
     // 檢查直行
     for (let i = 0; i < 5; i++) {
-      if (board.every((row) => row[i].marked)) {
+      const column = board.map((row) => row[i]);
+      if (column.every((cell) => cell.marked)) {
         lineCount++;
       }
     }
 
-    // 檢查對角線
-    if (board.every((row, i) => row[i].marked)) {
+    // 檢查主對角線 (左上到右下)
+    const mainDiagonal = board.map((row, i) => row[i]);
+    if (mainDiagonal.every((cell) => cell.marked)) {
       lineCount++;
     }
-    if (board.every((row, i) => row[4 - i].marked)) {
+
+    // 檢查副對角線 (右上到左下)
+    const antiDiagonal = board.map((row, i) => row[4 - i]);
+    if (antiDiagonal.every((cell) => cell.marked)) {
       lineCount++;
     }
 
@@ -135,38 +140,59 @@ export default function BingoGame() {
         setSelectedNumber(null);
 
         // 檢查當前玩家是否填完
-        if (newBoard.every((row) => row.every((cell) => cell.value !== null))) {
+        const isBoardFull = newBoard.every((row) =>
+          row.every((cell) => cell.value !== null),
+        );
+
+        if (isBoardFull) {
           if (currentSetupPlayer === 1) {
             setCurrentSetupPlayer(2);
+            // 重置員工的板子為空白
+            const emptyBoard = Array(5)
+              .fill(null)
+              .map(() =>
+                Array(5)
+                  .fill(null)
+                  .map(() => ({ value: null, marked: false })),
+              );
+            setBoard2(emptyBoard);
+            // 重置可選數字的狀態
+            setSelectedNumber(null);
+            // 重置已選擇的數字標記
+            setSelectedNumberToMark(null);
           } else {
             setIsSettingUp(false);
           }
         }
       }
     } else {
-      // 遊戲階段：同時標記兩個玩家板上的相同數字
+      // 遊戲階段：只能點擊當前玩家的板子
       if (playerBoard !== currentPlayer) return;
+      if (!selectedNumberToMark) return;
 
       const targetCell =
         playerBoard === 1
           ? board1[rowIndex][colIndex]
           : board2[rowIndex][colIndex];
 
+      // 確認點擊的格子包含選中的數字
       if (targetCell.value !== selectedNumberToMark) return;
 
-      // 更新兩個玩家的板
-      const updateBoard = (board: typeof board1) => {
-        return board.map((row) =>
-          row.map((cell) =>
-            cell.value === selectedNumberToMark
-              ? { ...cell, marked: true }
-              : cell,
-          ),
-        );
-      };
-
-      const newBoard1 = updateBoard(board1);
-      const newBoard2 = updateBoard(board2);
+      // 標記兩個板子上相同的數字
+      const newBoard1 = board1.map((row) =>
+        row.map((cell) =>
+          cell.value === selectedNumberToMark
+            ? { ...cell, marked: true }
+            : cell,
+        ),
+      );
+      const newBoard2 = board2.map((row) =>
+        row.map((cell) =>
+          cell.value === selectedNumberToMark
+            ? { ...cell, marked: true }
+            : cell,
+        ),
+      );
 
       setBoard1(newBoard1);
       setBoard2(newBoard2);
@@ -175,6 +201,7 @@ export default function BingoGame() {
       checkWin(newBoard1, 1);
       checkWin(newBoard2, 2);
 
+      // 切換玩家並重置選中的數字
       setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
       setSelectedNumberToMark(null);
     }
@@ -285,9 +312,15 @@ export default function BingoGame() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleNumberSelect(num)}
-                  disabled={board1.some((row) =>
-                    row.some((cell) => cell.value === num),
-                  )}
+                  disabled={
+                    currentSetupPlayer === 1
+                      ? board1.some((row) =>
+                          row.some((cell) => cell.value === num),
+                        )
+                      : board2.some((row) =>
+                          row.some((cell) => cell.value === num),
+                        )
+                  }
                   className={`p-2 sm:p-3 rounded-xl font-bold text-base sm:text-lg shadow-lg ${
                     selectedNumber === num
                       ? 'bg-blue-500 text-white'
@@ -345,12 +378,19 @@ export default function BingoGame() {
         )}
 
         <div className="text-center text-blue-200 text-2xl mb-4">
-          當前玩家: {currentPlayer === 1 ? '老闆' : '員工'}
+          當前玩家:{' '}
+          {isSettingUp
+            ? currentSetupPlayer === 1
+              ? '老闆'
+              : '員工'
+            : currentPlayer === 1
+              ? '老闆'
+              : '員工'}
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:gap-8 mb-4 sm:mb-8">
           {/* 老闆的遊戲板 */}
-          {(!isSettingUp || currentSetupPlayer === 1) && (
+          {(isSettingUp ? currentSetupPlayer === 1 : currentPlayer === 1) && (
             <div
               className={`p-3 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 ${
                 currentPlayer === 1
@@ -383,13 +423,13 @@ export default function BingoGame() {
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handleCellClick(rowIndex, colIndex, 1)}
                         className={`aspect-square rounded-lg flex items-center justify-center text-xl font-bold transition-colors
-                          ${
-                            cell.marked
-                              ? 'bg-blue-500 text-white'
-                              : cell.value
-                                ? 'bg-blue-800 text-blue-200 hover:bg-blue-700'
-                                : 'bg-blue-900/50 text-white hover:bg-blue-800/50'
-                          }`}
+                        ${
+                          cell.marked
+                            ? 'bg-blue-500 text-white'
+                            : cell.value
+                              ? 'bg-blue-800 text-blue-200 hover:bg-blue-700'
+                              : 'bg-blue-900/50 text-white hover:bg-blue-800/50'
+                        }`}
                       >
                         {cell.value}
                       </motion.button>
@@ -401,7 +441,7 @@ export default function BingoGame() {
           )}
 
           {/* 員工的遊戲板 */}
-          {(!isSettingUp || currentSetupPlayer === 2) && (
+          {(isSettingUp ? currentSetupPlayer === 2 : currentPlayer === 2) && (
             <div
               className={`p-3 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 ${
                 currentPlayer === 2
@@ -434,13 +474,13 @@ export default function BingoGame() {
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handleCellClick(rowIndex, colIndex, 2)}
                         className={`aspect-square rounded-lg flex items-center justify-center text-xl font-bold transition-colors
-                          ${
-                            cell.marked
-                              ? 'bg-blue-500 text-white'
-                              : cell.value
-                                ? 'bg-blue-800 text-blue-200 hover:bg-blue-700'
-                                : 'bg-blue-900/50 text-white hover:bg-blue-800/50'
-                          }`}
+                        ${
+                          cell.marked
+                            ? 'bg-blue-500 text-white'
+                            : cell.value
+                              ? 'bg-blue-800 text-blue-200 hover:bg-blue-700'
+                              : 'bg-blue-900/50 text-white hover:bg-blue-800/50'
+                        }`}
                       >
                         {cell.value}
                       </motion.button>
