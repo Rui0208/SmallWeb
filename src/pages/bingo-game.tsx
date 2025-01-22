@@ -291,8 +291,8 @@ export default function BingoGame() {
                   className={`p-2 sm:p-3 rounded-xl font-bold text-base sm:text-lg shadow-lg ${
                     selectedNumber === num
                       ? 'bg-blue-500 text-white'
-                      : 'bg-white/10 text-white hover:bg-white/20'
-                  } disabled:opacity-40 transition-all duration-200`}
+                      : 'bg-white text-blue-900 hover:bg-blue-100'
+                  } disabled:opacity-40 disabled:bg-gray-300 disabled:text-gray-500 transition-all duration-200`}
                 >
                   {num}
                 </motion.button>
@@ -332,8 +332,8 @@ export default function BingoGame() {
                       selectedNumberToMark === num
                         ? 'bg-blue-500 text-white'
                         : isMarked
-                          ? 'bg-gray-700/50 text-white/30 cursor-not-allowed'
-                          : 'bg-white/10 text-white hover:bg-white/20'
+                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          : 'bg-white text-blue-900 hover:bg-blue-100'
                     } transition-all duration-200`}
                   >
                     {num}
