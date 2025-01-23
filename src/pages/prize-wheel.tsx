@@ -27,7 +27,7 @@ export default function PrizeWheel() {
       weight: 30, // 30% 概率
     },
     {
-      option: '加薪',
+      option: 'Diptyque香水',
       style: { backgroundColor: '#FF6B6B', textColor: '#ffffff' },
       weight: 20, // 20% 概率
     },
